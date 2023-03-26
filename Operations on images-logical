@@ -1,0 +1,16 @@
+A = imread("Matlab.png");
+figure(1)
+imshow(A)
+B = logical(A);
+C= imread("Matlab.png");
+figure(2)
+imshow(C)
+D = logical(C);
+E = B&D;
+F = im2uint8(E);
+figure(3)
+imshow(F)
+G = not(F);
+H = im2uint8(G);
+figure(4)
+imshow(H)
