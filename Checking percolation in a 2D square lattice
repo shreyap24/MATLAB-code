@@ -1,0 +1,33 @@
+n= input('Please enter the length of the square lattice'); %taking input from user
+for p= 0.1:0.1:1 %p is percolation threshold. The whole logic of the program resides within a loop that continually varies the threshold and checks for each value  
+%% generating a random lattice, setting points to 0 and 1, forming clusters
+ disp(p)
+A = rand(n,n); %generating random number between 0 and 1 in the lattice
+for i=1:1:n
+   for j=1:1:n
+       if A(i,j)>= p
+           A(i,j)=1;
+       else
+           A(i,j)=0;
+       end
+   end
+end
+%disp(A)
+N = bwlabel(A,4); %labelling 4 connected clusters in the lattice
+count = 0;
+%% Checking row 1 and row n
+for m=1:1:n %iterating through columns of row 1 
+    for o=1:1:n %iterating through column of row n, for every element in row 1
+    if N(1,m)~=0 && (N(1,m)==N(n,o)) %for every non-0 (non blocked) element, checking if row 1 and row n have any common cluster numbers
+        count = count+1; %keeping a count of such equal entities
+    end
+    end
+end
+if count>0
+    disp('percolates')
+else
+    disp('does not percolate')
+    fprintf('Percolation threshold: %f\n', p);
+    break;
+end
+end
