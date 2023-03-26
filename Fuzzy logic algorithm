@@ -1,0 +1,68 @@
+fis = mamfis('Name',"condition");
+fis = addInput(fis,[0 255],'Name',"R");
+fis = addMF(fis,"R","trapmf",[-2 0 55 95],'Name',"NL");
+fis = addMF(fis,"R","trapmf",[160 208 255 270],'Name',"PL");
+fis = addMF(fis,"R","trapmf",[35 117 137 220],'Name',"Z");
+fis = addInput(fis,[0 255],'Name',"Y");
+fis = addMF(fis,"Y","trapmf",[-2 0 55 95],'Name',"NL");
+fis = addMF(fis,"Y","trapmf",[160 208 255 270],'Name',"PL");
+fis = addMF(fis,"Y","trapmf",[35 117 137 220],'Name',"Z");
+fis = addInput(fis,[0 255],'Name',"Z");
+fis = addMF(fis,"Z","trapmf",[-2 0 55 95],'Name',"NL");
+fis = addMF(fis,"Z","trapmf",[160 208 255 270],'Name',"PL");
+fis = addMF(fis,"Z","trapmf",[35 117 137 220],'Name',"Z");
+fis = addOutput(fis,[0 20],'Name',"health");
+fis = addMF(fis,"health","trapmf",[-2 0 3.5 7],'Name',"normal");
+fis = addMF(fis,"health","trapmf",[3 9 12.8 17.4],'Name',"average");
+fis = addMF(fis,"health","trapmf",[13 17.1 20 25],'Name',"abnormal");
+ruleList = [1 1 1 1 1 1;
+            1 1 3 1 1 1;
+            1 1 2 1 1 1;
+            1 3 1 1 1 1;
+            1 3 3 2 1 1;
+            1 3 2 2 1 1;
+            1 2 1 1 1 1;
+            1 2 3 2 1 1;
+            1 2 2 3 1 1;
+            3 1 1 1 1 1;
+            3 1 3 2 1 1;
+            3 1 2 2 1 1;
+            3 3 1 2 1 1;
+            3 3 3 2 1 1;
+            3 3 2 2 1 1;
+            3 2 1 2 1 1;
+            3 2 3 2 1 1;
+            3 2 2 3 1 1;
+            2 1 1 1 1 1;
+            2 1 3 2 1 1;
+            2 1 2 3 1 1;
+            2 3 1 2 1 1;
+            2 3 3 2 1 1;
+            2 3 2 3 1 1;
+            2 2 1 3 1 1;
+            2 2 3 3 1 1;
+            2 2 2 3 1 1];
+fis = addRule(fis,ruleList);
+fis.Rules
+inputs = [159 169 161; 184 183 183; 244 243 243 ; 68 80 74; 0 0 0];
+for i= 1:size(inputs,1)
+ x= evalfis(fis,inputs(i,1));
+ disp(x);
+if (all(10<x) && all(x<12))
+    disp('Good condition');
+elseif (all(3<x) && all(x<5))
+    disp('Single phasing');
+elseif (all(1<x) && all(x<2.7))
+    disp('No supply');
+elseif (all(5<x) && all(x<10))
+    disp('Under current');
+elseif (all(12<x) && all(x<17))
+    disp('Over voltage');
+elseif (x>17)
+    disp('critically loaded');
+elseif (x<1.5)
+    disp('Two phase open');
+else 
+    disp('Motor condition could not be assessed');
+end
+end
