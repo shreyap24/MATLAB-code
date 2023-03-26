@@ -1,0 +1,7 @@
+A = imread("istockphoto-914839034-612x612.jpg");
+Ref =  imread("Matlab.png");
+size(A)
+size(Ref)
+B = imhistmatch(A,Ref);
+imshow(B);
+title('Histogram Matched Image')
