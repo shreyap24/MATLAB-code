@@ -1,0 +1,12 @@
+img = imread("istockphoto-914839034-612x612.jpg");
+R = img(100:200, 50:200);
+histEqR = histeq(R);
+res = img;
+res(100:200, 50:200) = histEqR;
+figure
+subplot(1, 2, 1)
+imshow(img)
+title('Original image')
+subplot(1, 2, 2)
+imshow(res)
+title('R histogram equalizated image')
